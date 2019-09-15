@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BudgetBuddy</string>
+    <string name="empty_list_text">There are no merchants nearby</string>
+    <string name="action_search">Search a merchant name…</string>
+    <string name="home_message">Search for a merchant name or browse nearby merchants to see what others have spent.</string>
+    <string name="home">Home</string>
+    <string name="search_results_title">Search Results</string>
+    <string name="search_results_text">Showing merchants matching \"%s\"</string>
+    <string name="unavailable_google_play_service_error">Error: Google Play Services is unavailable on this device :(</string>
+    <string name="median_spending">Median</string>
+</resources>
