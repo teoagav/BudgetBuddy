@@ -15,16 +15,15 @@ customersCol = applicationDb['customers']
 
 @app.route('/merchantDetails', methods = ['POST'])
 def merchantDetails():
-    if not request.content_type == 'application/json':
-        return ''
     data = request.get_json()
+    print(data)
     latitude = data['latitude']
     longitude = data['longitude']
     merchantName = data['merchantName']
     dayRange = data['dayRange']
-    customerAgeLower = data['customerAgeLower']
-    customerAgeUpper = data['customerAgeUpper']
-    customerGender = data['customerGender']
+    customerAgeLower = data['customerAgeLower'] if 'customerAgeLower' in data.keys() else 0
+    customerAgeUpper = data['customerAgeUpper'] if 'customerAgeUpper' in data.keys() else 0
+    customerGender = data['customerGender'] if 'customerGender' in data.keys() else ''
 
     kilometresPerLatitudeDegree = 111.09
     latitudeInRadians = latitude * (math.pi / 180)
@@ -53,6 +52,8 @@ def merchantDetails():
     })
 
     retVal = {}
+    if localTransactions.count() == 0:
+        return 'No results found! Try looking at the info you passed in.'
     transaction = localTransactions[0]
     transactionDict = json.loads(json.dumps(transaction, default=json_util.default))
     coords1 = (latitude, longitude)
@@ -71,7 +72,10 @@ def merchantDetails():
         customerId = transactionDict['customerId']
         customer = customersCol.find_one({'id': customerId})
         customer = json.loads(json.dumps(customer, default=json_util.default))
-        if customer['age'] >= customerAgeLower and customer['age'] <= customerAgeUpper and customer['gender'] == customerGender:
+        if (customerAgeLower == 0 or customer['age'] >= customerAgeLower) and \
+            (customerAgeUpper == 0 or customer['age'] <= customerAgeUpper) and \
+            (customerGender == '' or customer['gender'] == customerGender):
+
             count += 1
             totalSpending += transactionDict['currencyAmount']
             purchases.append(transactionDict['currencyAmount'])
@@ -88,13 +92,13 @@ def merchantDetails():
             (purchases[int(count/2)] + purchases[int(count/2) - 1]) / 2
         retVal['transactionCount'] = count
 
+    print(retVal)
     return retVal
 
 @app.route('/localTransactions', methods = ['POST'])
 def localTransactions():
-    if not request.content_type == 'application/json':
-        return ''
     data = request.get_json()
+    print(data)
     latitude = data['latitude']
     longitude = data['longitude']
     dayRange = data['dayRange']
@@ -145,8 +149,10 @@ def localTransactions():
             'distance': merchantInfo['distance'],
             'averageSpending': merchantInfo['totalSpending'] / merchantInfo['count']
         })
+    retVal['merchants'].sort(key=lambda item: item['distance'])
 
+    print(retVal)
     return retVal
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host= '0.0.0.0')
