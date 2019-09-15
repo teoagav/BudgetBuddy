@@ -1,0 +1,16 @@
+{
+    "address": "150 University Avenue W",
+    "averageSpending": 12.718181818181817,
+    "city": "Waterloo",
+    "distance": 518.5072867832249,
+    "medianSpending": 12.04,
+    "spendingDistribution": {
+        "11": 3,
+        "12": 3,
+        "13": 2,
+        "14": 1,
+        "15": 1,
+        "17": 1
+    },
+    "transactionCount": 11
+}

@@ -1,0 +1,14 @@
+{
+    "merchants": [
+        {
+            "averageSpending": 14.696000000000002,
+            "distance": 518.5072867832249,
+            "name": "Burger King"
+        },
+        {
+            "averageSpending": 12.539666666666664,
+            "distance": 0.0,
+            "name": "Mr Paninos Beijing House"
+        }
+    ]
+}
