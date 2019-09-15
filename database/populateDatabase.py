@@ -16,7 +16,7 @@ paninoTransactionTemplate = {
     'merchantCategoryCode': '5814',
     'description': 'MR PANINOS #900 _F',
     'type': 'CreditCardTransaction',
-    'merchantName': 'Mr Paninos Beijing House',
+    'merchantName': 'Mr Panino\'s Beijing House',
     'currencyAmount': 'TO INSERT',
     'locationRegion': 'ON',
     'source': 'POS',
@@ -58,6 +58,77 @@ bkTransactionTemplate = {
     ]
 }
 
+harveysTransactionTemplate = {
+    'locationLongitude': -80.5384454,
+    'locationLatitude': 43.4719514,
+    'merchantId': '123-harvey',
+    'description': 'HARVEY #900 _F',
+    'merchantName': 'Harvey\'s',
+    'locationStreet': '170 University Avenue W',
+    'locationCountry': 'CA',
+    'merchantCategoryCode': '5814',
+    'type': 'CreditCardTransaction',
+    'currencyAmount': 'TO INSERT',
+    'locationRegion': 'ON',
+    'source': 'POS',
+    'locationCity': 'Waterloo',
+    'originationDateTime': 'TO INSERT',
+    'locationPostalCode': 'N2L 3E4',
+    'customerId': 'TO INSERT',
+    'id': 'TO INSERT',
+    'accountId': 'TO INSERT',
+    'categoryTags': [
+      'Food and Dining'
+    ]
+}
+
+subwayTransactionTemplate = {
+    'locationLongitude': -80.5375333,
+    'locationLatitude': 43.472145,
+    'merchantId': '123-subway',
+    'description': 'SUBWAY #900 _F',
+    'merchantName': 'Subway',
+    'locationStreet': '160 University Avenue W',
+    'locationCountry': 'CA',
+    'merchantCategoryCode': '5814',
+    'type': 'CreditCardTransaction',
+    'currencyAmount': 'TO INSERT',
+    'locationRegion': 'ON',
+    'source': 'POS',
+    'locationCity': 'Waterloo',
+    'originationDateTime': 'TO INSERT',
+    'locationPostalCode': 'N2L 3E4',
+    'customerId': 'TO INSERT',
+    'id': 'TO INSERT',
+    'accountId': 'TO INSERT',
+    'categoryTags': [
+      'Food and Dining'
+    ]
+}
+
+golsTransactionTemplate = {
+    'locationLongitude': -80.5371392,
+    'locationLatitude': 43.4725607,
+    'merchantId': '123-gol',
+    'description': 'GOLS #900 _F',
+    'merchantName': 'Gol\'s Lanzhou Noodle',
+    'locationStreet': '150 University Avenue W',
+    'locationCountry': 'CA',
+    'merchantCategoryCode': '5814',
+    'type': 'CreditCardTransaction',
+    'currencyAmount': 'TO INSERT',
+    'locationRegion': 'ON',
+    'source': 'POS',
+    'locationCity': 'Waterloo',
+    'originationDateTime': 'TO INSERT',
+    'locationPostalCode': 'N2L 3E4',
+    'customerId': 'TO INSERT',
+    'id': 'TO INSERT',
+    'accountId': 'TO INSERT',
+    'categoryTags': [
+      'Food and Dining'
+    ]
+}
 
 # Start the DB
 applicationClient = pymongo.MongoClient('mongodb://localhost:27017/')
@@ -138,8 +209,8 @@ for agePair in ages:
 
                     paninoObject = copy.deepcopy(paninoTransactionTemplate)
                     transactionsCol.insert_one(paninoObject)
-                else:
-                    bkCost = float(random.randint(1000,2000)) / 100
+                if random.randint(0,1) == 1:
+                    bkCost = float(random.randint(500,1000)) / 100
 
                     bkTransactionTemplate['id'] = 'bk#' + str(idNumber)
                     bkTransactionTemplate['originationDateTime'] = date
@@ -147,3 +218,30 @@ for agePair in ages:
 
                     bkObject = copy.deepcopy(bkTransactionTemplate)
                     transactionsCol.insert_one(bkObject)
+                if random.randint(0,1) == 1:
+                    harveysCost = float(random.randint(900,2100)) / 100
+
+                    harveysTransactionTemplate['id'] = 'harveys#' + str(idNumber)
+                    harveysTransactionTemplate['originationDateTime'] = date
+                    harveysTransactionTemplate['currencyAmount'] = harveysCost
+
+                    harveysObject = copy.deepcopy(harveysTransactionTemplate)
+                    transactionsCol.insert_one(harveysObject)
+                if random.randint(0,1) == 1:
+                    subwayCost = float(random.randint(1000,2500)) / 100
+
+                    subwayTransactionTemplate['id'] = 'subway#' + str(idNumber)
+                    subwayTransactionTemplate['originationDateTime'] = date
+                    subwayTransactionTemplate['currencyAmount'] = subwayCost
+
+                    subwayObject = copy.deepcopy(subwayTransactionTemplate)
+                    transactionsCol.insert_one(subwayObject)
+                if random.randint(0,1) == 1:
+                    golsCost = float(random.randint(1500,3000)) / 100
+
+                    golsTransactionTemplate['id'] = 'gols#' + str(idNumber)
+                    golsTransactionTemplate['originationDateTime'] = date
+                    golsTransactionTemplate['currencyAmount'] = golsCost
+
+                    golsObject = copy.deepcopy(golsTransactionTemplate)
+                    transactionsCol.insert_one(golsObject)
